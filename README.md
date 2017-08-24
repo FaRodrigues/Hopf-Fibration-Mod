@@ -1,4 +1,4 @@
-# Discrete Hopf-Fibration Modulations
+# Discrete Hopf Fibration Modulations
 This project is dedicated to the use of Discrete Hopf Fibration in the design of Four-Dimensional Modulations
 
 The formalism of Hopf fibration can be useful in the context of classical coherent optical communications.
