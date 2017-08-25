@@ -1,5 +1,5 @@
-# Discrete Hopf Fibration in the Signal Space of 4D Modulations
-This project is dedicated to the use of Discrete Hopf Fibration in the design of Four-Dimensional Modulations
+# Discrete Hopf Fibration in the Design of 4D Modulations
+This project is dedicated to the use of Discrete Hopf Fibration in the signal space of Four-Dimensional Modulations
 
 The formalism of Hopf fibration can be useful in the context of classical coherent optical communications.
 Hopf maps can provide complementary information on the geometry of four-dimensional signal space through explicit and concise relations.
