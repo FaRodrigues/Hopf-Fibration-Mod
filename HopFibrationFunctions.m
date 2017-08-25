@@ -2,16 +2,16 @@
 
 BeginPackage["HopFibrationFunctions`"]
 
+ClearAll[\[Theta]1,\[Phi]1,\[Theta]x,\[Phi]x];
+ClearAll[splineCircle,pointsAndConnection];
+
 StokesToPolarCoordinates::usage = "Realize the conversion from normalized Stokes vectors angular coordinates";
 getHopfFiber::usage = "Returns the Inverse Hopf map";
 rightDIRECTHOPFMAP::usage = "Returns the Right Direct Hopf map";
 factorProjSTEREO::usage = "Returns the distorted stereographic projection";
 getRGBColors::usage = "Returns RGB colors based in parameters";
 
-ClearAll[\[Theta]1,\[Phi]1,\[Theta]x,\[Phi]x];
-ClearAll[splineCircle,pointsAndConnection];
-basisPoints = {};
-
+Begin["\.b4Private`"]
 (* This part of code was obtained from Internet *)
 (*------https://mathematica.stackexchange.com/questions/10957/an-efficient-circular-arc-primitive-for-graphics3d/10994 ---------*)
 
@@ -101,11 +101,13 @@ getRGBColors[{a_,b_,c_}]:=Module[{A=N[(1+a)/2],B=N[(1+b)/2],C=N[(1+c)/2]},
 RGBColor[A,B,C]
 ];
 
-setBasisPointsFromTXTFile[namefile_]:= Module[{filepath = FileNameJoin[{"/mnt/D/POLIANA","ICOESFERA",namefile}]},
+basisPoints = {};
+
+setBasisPointsFromTXTFile[namefile_]:= Module[{filepath = FileNameJoin[{NotebookDirectory[],"basispoints",namefile}]},
 Print[StringForm["\nLoading basis points from '``'.\n",filepath]];
  icosphere42M90=Import[filepath,"Table"];
  basisPoints = DeleteDuplicates[Round[icosphere42M90,0.001]]
- ];
+ ]
 
 get4DConstellationFromSampledHopfFibration[bpoints_,PSIsamples_,startAngle_]:=Module[{bp=bpoints},
 If[Length[bp]>0,
@@ -188,10 +190,8 @@ Show[Graphics3D[Join[{ModulationMatrixHOPFPoints,poincareSphereList,Opacity[.1],
 }
 ];
 ];
-EndPackage[]
-
-
-
+End[]
+EndPackage[];
 
 
 

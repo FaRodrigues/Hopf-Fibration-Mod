@@ -2,6 +2,7 @@
 
 BeginPackage["PerformanceMetricFunctions`"]
 
+Begin["Private`"]
 
 (* The getMinDistance function calculates the minimum distance between inputConstellation1 symbols *)
 getMinDistance[inputConstellation1_]:=Module[{DimMM1 = Dimensions[inputConstellation1]},
@@ -12,6 +13,7 @@ dmin
 
 (* The getModulationQuantizer function calculates the CARDINALITY of the quantizer (non repeated values of DAC voltages) *)
 getModulationQuantizer[inputConstellation2_]:=Module[{DimMM2 = Dimensions[inputConstellation2]},
+Print[DimMM2];
 DMM = DeleteDuplicates[ArrayReshape[inputConstellation2,{DimMM2[[1]]*DimMM2[[2]],DimMM2[[3]]}]];
 QAM1 = Flatten[DMM[[All,{1}]]];
 QAM2 = Flatten[DMM[[All,{2}]]];
@@ -23,13 +25,6 @@ QUANTIZER
 
 (* The getModulationPerformanceMetrics function calculates performance metrics for the inputConstellation *)
 getModulationPerformanceMetrics[inputConstellation_]:=Module[{DimMM = Dimensions[inputConstellation]},
-(*Print["
-\n
-**********************************************************
- Starting the calculation of the performance metrics !!!
-**********************************************************
-\n
-"];*)
 (* OBS: The partitioned 4D constellation map to repeated symbols on the QAM partitions so the M = Length[ModulationMatrixSerial] calculation need to be considered only after the application of the "DeleteDuplicates" method. *)
 ModulationMatrixSerial = DeleteDuplicates[ArrayReshape[inputConstellation,{DimMM[[1]]*DimMM[[2]],DimMM[[3]]}]];
 M  = Length[ModulationMatrixSerial]; (* M = Number of Symbols *)
@@ -42,7 +37,7 @@ Eb = Eave/Log2[M]; (* Eb = ENERGY per bit calculation *)
 PEff = Round[d^2/(4Eb),0.001]; (* PEff = POWER efficiency calculation *)
 SEff= Round[Log2[M]/(NumOfDim/2),0.001];  (* SEff = SPECTRAL efficiency calculation *)
 cfm= Round[(d^2 NumOfDim)/(2*Eave),0.001]; (* cfm = CONSTELLATION FIGURE OF MERIT calculation *)
-{distmin->d,AVE-> Eave, SE-> SEff,CFM-> cfm, CFMdB-> 10Log[10,cfm], PE-> PEff, PEdB-> 10Log[10,PEff], Dim-> NumOfDim, Number Of Symbols-> M}
+Print[{distmin->d,AVE-> Eave, SE-> SEff,CFM-> cfm, CFMdB-> 10Log[10,cfm], PE-> PEff, PEdB-> 10Log[10,PEff], Dim-> NumOfDim, Number Of Symbols-> M}];
 ];
 
 plotQAMPartitions[QAMPartitions_,tokenprint_]:=Module[{pointsize = 0.04},
@@ -103,10 +98,11 @@ Show[Graphics3D[ptrq2],ImageSize-> 480,PlotRange-> All,Axes-> True,Boxed-> True,
 ];
 
 Print[gmpmR];
-] (*end If*)
 ];
-
+];
+End[]
 EndPackage[]
+
 
 
 
